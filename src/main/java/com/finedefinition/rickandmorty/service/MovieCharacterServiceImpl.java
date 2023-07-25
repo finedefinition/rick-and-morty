@@ -5,10 +5,6 @@ import com.finedefinition.rickandmorty.dto.external.ApiResponseDto;
 import com.finedefinition.rickandmorty.dto.mapper.MovieCharacterMapper;
 import com.finedefinition.rickandmorty.model.MovieCharacter;
 import com.finedefinition.rickandmorty.repository.MovieCharacterRepository;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +12,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
@@ -25,9 +23,9 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     private final MovieCharacterRepository movieCharacterRepository;
     private final MovieCharacterMapper movieCharacterMapper;
 
-    public MovieCharacterServiceImpl(HttpClient httpClient
-            , MovieCharacterRepository movieCharacterRepository
-            , MovieCharacterMapper movieCharacterMapper) {
+    public MovieCharacterServiceImpl(HttpClient httpClient,
+                                     MovieCharacterRepository movieCharacterRepository,
+                                     MovieCharacterMapper movieCharacterMapper) {
         this.httpClient = httpClient;
         this.movieCharacterRepository = movieCharacterRepository;
         this.movieCharacterMapper = movieCharacterMapper;
@@ -51,7 +49,9 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
             saveDtosToDb(apiResponseDto);
         }
     }
+
     private void saveDtosToDb(ApiResponseDto responseDto) {
+
         Map<Long, ApiCharacterDto> externalsDtos = Arrays.stream(responseDto.getResults())
                 .collect(Collectors.toMap(ApiCharacterDto::getId, Function.identity()));
 
@@ -78,6 +78,11 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
         long count = movieCharacterRepository.count();
         long randomId = (long) (Math.random() * count);
         return movieCharacterRepository.getById(randomId);
+    }
+
+    @Override
+    public List<MovieCharacter> findAllByNameContains(String namePart) {
+        return movieCharacterRepository.findAllByNameContains(namePart);
     }
 }
 
