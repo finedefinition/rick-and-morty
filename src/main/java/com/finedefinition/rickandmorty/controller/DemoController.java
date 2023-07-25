@@ -22,9 +22,6 @@ public class DemoController {
 
     @GetMapping
     public String runDemo() {
-       ApiResponseDto apiResponseDto = httpClient
-               .get("https://rickandmortyapi.com/api/character", ApiResponseDto.class);
-       log.info("API response {}" , apiResponseDto);
         return "Done!";
     }
 }
