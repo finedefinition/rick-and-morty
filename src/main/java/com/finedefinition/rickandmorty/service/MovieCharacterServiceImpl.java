@@ -1,7 +1,7 @@
 package com.finedefinition.rickandmorty.service;
 
-import com.finedefinition.rickandmorty.dto.ApiCharacterDto;
-import com.finedefinition.rickandmorty.dto.ApiResponseDto;
+import com.finedefinition.rickandmorty.dto.external.ApiCharacterDto;
+import com.finedefinition.rickandmorty.dto.external.ApiResponseDto;
 import com.finedefinition.rickandmorty.dto.mapper.MovieCharacterMapper;
 import com.finedefinition.rickandmorty.model.MovieCharacter;
 import com.finedefinition.rickandmorty.repository.MovieCharacterRepository;
@@ -34,7 +34,7 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     }
 
     //@Scheduled(cron = "0 0 8 * * ?")
-    @Scheduled(cron = "*/30 * * * * ?")
+    //@Scheduled(cron = "*/30 * * * * ?")
     @Override
     public void syncExternalCharacters() {
         log.info("syncExternalCharacters was invoked at " + LocalDateTime.now());
@@ -71,6 +71,13 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
                 .collect(Collectors.toList());
 
         movieCharacterRepository.saveAll(charactersToSave);
+    }
+
+    @Override
+    public MovieCharacter getRandomCharacter() {
+        long count = movieCharacterRepository.count();
+        long randomId = (long) (Math.random() * count);
+        return movieCharacterRepository.getById(randomId);
     }
 }
 

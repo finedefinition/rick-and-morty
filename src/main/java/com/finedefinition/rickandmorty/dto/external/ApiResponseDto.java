@@ -1,4 +1,4 @@
-package com.finedefinition.rickandmorty.dto;
+package com.finedefinition.rickandmorty.dto.external;
 
 import lombok.Data;
 
