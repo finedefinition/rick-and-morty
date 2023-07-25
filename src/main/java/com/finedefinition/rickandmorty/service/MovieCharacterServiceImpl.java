@@ -6,6 +6,7 @@ import com.finedefinition.rickandmorty.dto.mapper.MovieCharacterMapper;
 import com.finedefinition.rickandmorty.model.MovieCharacter;
 import com.finedefinition.rickandmorty.repository.MovieCharacterRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,8 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
         this.movieCharacterMapper = movieCharacterMapper;
     }
 
+    //@Scheduled(cron = "0 0 8 * * ?")
+    @Scheduled(cron = "*/30 * * * * ?")
     @Override
     public void syncExternalCharacters() {
         log.info("syncExternalCharacters was invoked at " + LocalDateTime.now());
