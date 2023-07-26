@@ -12,10 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -35,8 +32,8 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     }
 
     //@Scheduled(cron = "0 0 8 * * ?")
-    @Scheduled(cron = "*/30 * * * * ?")
-    @PostConstruct
+    //@Scheduled(cron = "*/30 * * * * ?")
+    //@PostConstruct
     @Override
     public void syncExternalCharacters() {
         log.info("syncExternalCharacters was invoked at " + LocalDateTime.now());
