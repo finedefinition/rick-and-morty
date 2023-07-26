@@ -5,6 +5,7 @@ import com.finedefinition.rickandmorty.dto.external.ApiResponseDto;
 import com.finedefinition.rickandmorty.dto.mapper.MovieCharacterMapper;
 import com.finedefinition.rickandmorty.model.MovieCharacter;
 import com.finedefinition.rickandmorty.repository.MovieCharacterRepository;
+import jakarta.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,7 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
 
     //@Scheduled(cron = "0 0 8 * * ?")
     //@Scheduled(cron = "*/30 * * * * ?")
-    //@PostConstruct
+    @PostConstruct
     @Override
     public void syncExternalCharacters() {
         log.info("syncExternalCharacters was invoked at " + LocalDateTime.now());
